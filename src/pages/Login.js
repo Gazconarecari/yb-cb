@@ -1,54 +1,68 @@
 import { useState } from 'react';
 import { supabase } from '../supabaseClient';
+import { useNavigate } from 'react-router-dom';
+import './Login.css';
 
 function Login({ setUser }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
-    e.preventDefault(); // Prevenir la recarga de página
+    e.preventDefault();
 
     if (!username || !password) {
-      console.log('Username y contraseña son obligatorios');
+      setErrorMessage('Username y contraseña son obligatorios');
       return;
     }
 
-    // Consultamos la base de datos para encontrar al usuario con el username y password correctos
     const { data, error } = await supabase
       .from('users')
       .select('*')
       .eq('username', username)
       .eq('password', password)
-      .single();  // Para que devuelva un solo usuario si coincide
+      .single();
 
     if (error) {
-      console.log('Error al iniciar sesión:', error.message);
+      setErrorMessage('Error al iniciar sesión: ' + error.message);
     } else if (data) {
       console.log('Inicio de sesión exitoso:', data);
-      setUser(data);  // Guardamos el usuario en el estado global y localStorage
+      setUser(data);
+      setErrorMessage('');
+      localStorage.setItem('user', JSON.stringify(data));
+      navigate('/vota');
+      window.location.reload();
     } else {
-      console.log('Credenciales incorrectas');
+      setErrorMessage('Credenciales incorrectas');
     }
   };
 
   return (
-    <div>
-      <h2>Login</h2>
+    <div className="login-container">
+      {/* Nuevo encabezado estilizado */}
+      <div className="welcome-header">
+        <h1>BIENVENIDOS A</h1>
+        <h2>YB CHAMPIONS BURGER</h2>
+      </div>
+
+      <h2></h2>
       <form onSubmit={handleLogin}>
-        <input 
-          type="text" 
-          placeholder="Username" 
-          value={username} 
-          onChange={(e) => setUsername(e.target.value)} 
+        <input
+          type="text"
+          placeholder="Nombre"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
-        <input 
-          type="password" 
-          placeholder="Password" 
-          value={password} 
-          onChange={(e) => setPassword(e.target.value)} 
+        <input
+          type="password"
+          placeholder="Referencia"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <button type="submit">Login</button>
       </form>
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
     </div>
   );
 }

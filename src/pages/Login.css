@@ -1,0 +1,82 @@
+/* Contenedor principal */
+.login-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  /* Encabezado del login */
+  .welcome-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .welcome-header h1 {
+    font-size: 2rem;
+    color: #4A90E2;
+    margin: 0;
+  }
+  
+  .welcome-header h2 {
+    font-size: 2.5rem;
+    color: #fdb100;
+    margin: 10px 0;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+  }
+  
+  /* Título del formulario */
+  h2 {
+    color: #4A90E2;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    font-weight: 400;
+  }
+  
+  /* Campos del formulario */
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 10px 0;
+    display: inline-block;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    transition: border 0.3s ease;
+  }
+  
+  input[type="text"]:focus,
+  input[type="password"]:focus {
+    border: 1px solid #4A90E2;
+    outline: none;
+  }
+  
+  /* Botón de Login */
+  button {
+    background-color: #4A90E2;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+  }
+  
+  button:hover {
+    background-color: #357ABD;
+  }
+  
+  /* Mensajes de error o información */
+  .error-message {
+    color: #ff4d4f;
+    font-size: 1rem;
+    margin-top: 10px;
+  }

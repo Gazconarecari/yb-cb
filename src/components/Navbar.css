@@ -1,0 +1,64 @@
+/* Estilos para el Navbar */
+nav {
+    background-color: #f8f9fa; /* Fondo claro para mejor contraste */
+    padding: 10px 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-around; /* Distribuir enlaces equitativamente */
+    align-items: center;
+    margin: 0;
+    padding: 0;
+  }
+  
+  nav ul li {
+    display: inline;
+  }
+  
+  nav ul li a {
+    color: #4A90E2; /* Color de texto visible en estado normal */
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 10px 15px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 8px;
+  }
+  
+  nav ul li a:hover {
+    background-color: #4A90E2; /* Fondo azul al hacer hover */
+    color: #fff; /* Color del texto en blanco al hacer hover */
+  }
+  
+  button {
+    background-color: #50E3C2; /* Fondo del botón */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #3AC2A8; /* Color del botón al hacer hover */
+  }
+  
+  @media (max-width: 768px) {
+    /* Estilos para dispositivos móviles */
+    nav ul {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    nav ul li {
+      margin-bottom: 10px;
+    }
+  }

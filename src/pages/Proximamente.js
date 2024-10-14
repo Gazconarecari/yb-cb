@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../supabaseClient';
+import './Proximamente.css'; // Importar el archivo de estilos
 
 function Proximamente() {
   const [convocatorias, setConvocatorias] = useState([]);
@@ -21,11 +22,11 @@ function Proximamente() {
   }, []);
 
   return (
-    <div>
+    <div className="container">
       <h2>Próximas Convocatorias</h2>
       <ul>
         {convocatorias.length === 0 ? (
-          <p>No hay convocatorias próximas</p>
+          <p className="no-convocatorias">No hay convocatorias próximas</p>
         ) : (
           convocatorias.map((convocatoria, index) => {
             const convocatoriaDate = new Date(convocatoria.fecha);

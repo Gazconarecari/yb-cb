@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../supabaseClient';
+import './Clasificacion.css'; // Importar los estilos
 
 function Clasificacion() {
   const [convocatorias, setConvocatorias] = useState([]);
@@ -23,10 +24,10 @@ function Clasificacion() {
   }, []);
 
   return (
-    <div>
+    <div className="container">
       <h2>Clasificación</h2>
       {convocatorias.length === 0 ? (
-        <p>Todavía nadie tiene valoración</p>  // Mostrar el mensaje si no hay datos
+        <p className="no-data">Todavía nadie tiene valoración</p>  // Mostrar el mensaje si no hay datos
       ) : (
         <table>
           <thead>
@@ -38,7 +39,8 @@ function Clasificacion() {
           <tbody>
             {convocatorias.map((convocatoria, index) => (
               <tr key={index}>
-                <td>{convocatoria.username}</td><td>{convocatoria.promedio.toFixed(2)}</td>
+                <td>{convocatoria.username}</td>
+                <td>{convocatoria.promedio.toFixed(2)}</td>
               </tr>
             ))}
           </tbody>

@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; // Asume que estás usando react-router-dom para manejar las rutas
 import { supabase } from '../supabaseClient';
+import './Navbar.css';
+
 
 function Navbar() {
   const [user, setUser] = useState(null);
