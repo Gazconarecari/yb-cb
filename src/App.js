@@ -24,10 +24,6 @@ function App() {
     localStorage.setItem('user', JSON.stringify(user));  // Guardamos la sesión en localStorage
   };
 
-  const handleLogout = () => {
-    setUser(null);
-    localStorage.removeItem('user');  // Limpiamos la sesión de localStorage
-  };
 
   // Si estamos cargando la sesión, mostramos un mensaje o pantalla de carga
   if (loading) {
