@@ -46,7 +46,7 @@ function Login({ setUser }) {
         <h2>YB CHAMPIONS BURGER</h2>
       </div>
 
-      <h2></h2>
+    
       <form onSubmit={handleLogin}>
         <input
           type="text"
