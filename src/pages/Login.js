@@ -13,9 +13,10 @@ function Login({ setUser }) {
     e.preventDefault();
 
     if (!username || !password) {
-      setErrorMessage('Username y contraseña son obligatorios');
+      setErrorMessage('Ingresa tu nombre y referencia primero.');
       return;
     }
+    
 
     const { data, error } = await supabase
       .from('users')
