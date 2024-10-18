@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Clasificacion from './pages/Clasificacion';
 import Proximamente from './pages/Proximamente';
 import Vota from './pages/Vota';
+import { supabase } from './supabaseClient';  // Ajusta la ruta si es necesario
 
 function App() {
   const [user, setUser] = useState(null);
@@ -24,6 +25,11 @@ function App() {
     localStorage.setItem('user', JSON.stringify(user));  // Guardamos la sesión en localStorage
   };
 
+  const handleLogout = async () => {
+    await supabase.auth.signOut(); // Cerramos sesión en Supabase
+    localStorage.removeItem('user'); // Eliminamos el usuario de localStorage
+    setUser(null); // Actualizamos el estado
+  };
 
   // Si estamos cargando la sesión, mostramos un mensaje o pantalla de carga
   if (loading) {
@@ -31,9 +37,8 @@ function App() {
   }
 
   return (
-    
     <Router>
-      <Navbar />  
+      <Navbar user={user} handleLogout={handleLogout} />  {/* Pasamos el user y handleLogout al Navbar */}
       <Routes>
         {/* Ruta de Login */}
         <Route path="/" element={<Login setUser={handleLogin} />} />

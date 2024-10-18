@@ -1,32 +1,7 @@
-import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; // Asume que estás usando react-router-dom para manejar las rutas
-import { supabase } from '../supabaseClient';
 import './Navbar.css';
 
-
-function Navbar() {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    // Verificamos si el usuario está guardado en localStorage
-    const savedUser = localStorage.getItem('user');
-    if (savedUser) {
-      setUser(JSON.parse(savedUser)); // Si existe, lo guardamos en el estado
-    } else {
-      // Obtenemos la sesión actual de Supabase correctamente con getSession()
-      const getUserSession = async () => {
-        const { data: { session } } = await supabase.auth.getSession();
-        setUser(session?.user || null); // Si hay una sesión activa, guardamos el usuario
-      };
-      getUserSession();
-    }
-  }, []);
-
-  const handleLogout = async () => {
-    await supabase.auth.signOut(); // Cerramos sesión en Supabase
-    localStorage.removeItem('user'); // Eliminamos el usuario de localStorage
-    setUser(null); // Actualizamos el estado
-  };
+function Navbar({ user, handleLogout }) {  // Recibimos el usuario y la función de logout como props
 
   return (
     <nav>
