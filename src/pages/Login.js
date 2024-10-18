@@ -32,7 +32,6 @@ function Login({ setUser }) {
       setErrorMessage('');
       localStorage.setItem('user', JSON.stringify(data));
       navigate('/vota');
-      window.location.reload();
     } else {
       setErrorMessage('Credenciales incorrectas');
     }
