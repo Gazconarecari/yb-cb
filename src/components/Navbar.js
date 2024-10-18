@@ -1,8 +1,7 @@
-import { Link } from 'react-router-dom'; // Asume que estás usando react-router-dom para manejar las rutas
+import { Link } from 'react-router-dom';
 import './Navbar.css';
 
-function Navbar({ user, handleLogout }) {  // Recibimos el usuario y la función de logout como props
-
+function Navbar({ user, handleLogout }) {
   return (
     <nav>
       <ul>
@@ -19,15 +18,16 @@ function Navbar({ user, handleLogout }) {  // Recibimos el usuario y la función
               <Link to="/vota">VOTA</Link>
             </li>
             <li>
+              <Link to="/misvotos">MIS VOTOS</Link> {/* Nuevo enlace */}
+            </li>
+            <li>
               <button onClick={handleLogout}>LOGOUT</button>
             </li>
           </>
         ) : (
-          <>
-            <li>
-              <Link to="/">LOGIN</Link>
-            </li>
-          </>
+          <li>
+            <Link to="/">LOGIN</Link>
+          </li>
         )}
       </ul>
     </nav>
