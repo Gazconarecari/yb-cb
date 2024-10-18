@@ -87,19 +87,19 @@ function Vota({ user }) {
       <h2>Vota en la convocatoria de hoy</h2>
 
       <label>Pan</label>
-      <input type="number" value={Pan} onChange={(e) => setPan(e.target.value)} min="1" max="10" />
+      <input type="number" value={Pan} onChange={(e) => setPan(e.target.value)} min="0" max="10" />  {/* Cambiamos min a 0 */}
 
       <label>Carne</label>
-      <input type="number" value={Carne} onChange={(e) => setCarne(e.target.value)} min="1" max="10" />
+      <input type="number" value={Carne} onChange={(e) => setCarne(e.target.value)} min="0" max="10" /> {/* Cambiamos min a 0 */}
 
       <label>Combinación</label>
-      <input type="number" value={Combinacion} onChange={(e) => setCombinacion(e.target.value)} min="1" max="10" />
+      <input type="number" value={Combinacion} onChange={(e) => setCombinacion(e.target.value)} min="0" max="10" /> {/* Cambiamos min a 0 */}
 
       <label>Presentación</label>
-      <input type="number" value={Presentacion} onChange={(e) => setPresentacion(e.target.value)} min="1" max="10" />
+      <input type="number" value={Presentacion} onChange={(e) => setPresentacion(e.target.value)} min="0" max="10" /> {/* Cambiamos min a 0 */}
 
       <label>Originalidad</label>
-      <input type="number" value={Originalidad} onChange={(e) => setOriginalidad(e.target.value)} min="1" max="10" />
+      <input type="number" value={Originalidad} onChange={(e) => setOriginalidad(e.target.value)} min="0" max="10" /> {/* Cambiamos min a 0 */}
 
       <button onClick={handleSubmit}>Enviar Voto</button>
     </div>
