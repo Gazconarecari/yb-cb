@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../supabaseClient';
+import './Vota.css';  // Importamos el archivo CSS
 
-function Vota({ user }) {  // Recibimos el usuario autenticado como prop
+function Vota({ user }) {
   const [convocatoria, setConvocatoria] = useState(null);
-  const [Param1, setParam1] = useState(5);
-  const [Param2, setParam2] = useState(5);
-  const [Param3, setParam3] = useState(5);
+  const [hasVoted, setHasVoted] = useState(false);  // Estado para saber si ya ha votado
+  const [Pan, setPan] = useState(5);
+  const [Carne, setCarne] = useState(5);
+  const [Combinacion, setCombinacion] = useState(5);
+  const [Presentacion, setPresentacion] = useState(5);
+  const [Originalidad, setOriginalidad] = useState(5);
 
-  // Función para formatear la fecha en 'YYYY-MM-DD'
   const formatDate = (date) => {
     const d = new Date(date);
     const year = d.getFullYear();
@@ -20,7 +23,7 @@ function Vota({ user }) {  // Recibimos el usuario autenticado como prop
     async function fetchConvocatoriaHoy() {
       const today = formatDate(new Date());
 
-      let { data, error } = await supabase
+      let { data: convocatoriaData, error } = await supabase
         .from('convocatorias')
         .select('*')
         .eq('dia', today)
@@ -29,12 +32,26 @@ function Vota({ user }) {  // Recibimos el usuario autenticado como prop
       if (error) {
         console.log('No hay convocatoria para hoy:', error.message);
       } else {
-        setConvocatoria(data);
+        setConvocatoria(convocatoriaData);
+
+        // Verificar si el usuario ya ha votado en esta convocatoria
+        const { data: votoData, error: votoError } = await supabase
+          .from('voto')
+          .select('*')
+          .eq('id', user.id)  // Verificamos si el usuario ya votó
+          .eq('convocatoria', convocatoriaData.id)
+          .single();
+
+        if (votoData) {
+          setHasVoted(true);  // Si ya ha votado, cambiamos el estado
+        } else if (votoError && votoError.code !== 'PGRST116') {
+          console.log('Error comprobando si ha votado:', votoError.message);
+        }
       }
     }
 
     fetchConvocatoriaHoy();
-  }, []);
+  }, [user]);
 
   const handleSubmit = async () => {
     if (!convocatoria || !user) return;
@@ -45,9 +62,11 @@ function Vota({ user }) {  // Recibimos el usuario autenticado como prop
         {
           id: user.id,
           convocatoria: convocatoria.id,
-          Param1,
-          Param2,
-          Param3
+          Pan: Pan,
+          Carne: Carne,
+          Combinacion: Combinacion,
+          Presentacion: Presentacion,
+          Originalidad: Originalidad
         }
       ]);
 
@@ -55,21 +74,33 @@ function Vota({ user }) {  // Recibimos el usuario autenticado como prop
       console.log('Error enviando voto:', error.message);
     } else {
       console.log('Voto enviado con éxito');
-      setConvocatoria(null);  // Limpiamos la convocatoria para ocultar el formulario
+      setHasVoted(true);  // Actualizamos el estado para indicar que ya votó
     }
   };
 
-  if (!convocatoria) return <p>No hay convocatoria hoy.</p>;
+  if (!convocatoria) return <p className="no-convocatoria">No hay convocatoria hoy.</p>;
+
+  if (hasVoted) return <p className="ya-votado">Ya has votado en la convocatoria de hoy.</p>; // Mensaje si ya votó
 
   return (
-    <div>
+    <div className="vota-container">
       <h2>Vota en la convocatoria de hoy</h2>
-      <label>Param1</label>
-      <input type="number" value={Param1} onChange={(e) => setParam1(e.target.value)} min="1" max="10" />
-      <label>Param2</label>
-      <input type="number" value={Param2} onChange={(e) => setParam2(e.target.value)} min="1" max="10" />
-      <label>Param3</label>
-      <input type="number" value={Param3} onChange={(e) => setParam3(e.target.value)} min="1" max="10" />
+
+      <label>Pan</label>
+      <input type="number" value={Pan} onChange={(e) => setPan(e.target.value)} min="1" max="10" />
+
+      <label>Carne</label>
+      <input type="number" value={Carne} onChange={(e) => setCarne(e.target.value)} min="1" max="10" />
+
+      <label>Combinación</label>
+      <input type="number" value={Combinacion} onChange={(e) => setCombinacion(e.target.value)} min="1" max="10" />
+
+      <label>Presentación</label>
+      <input type="number" value={Presentacion} onChange={(e) => setPresentacion(e.target.value)} min="1" max="10" />
+
+      <label>Originalidad</label>
+      <input type="number" value={Originalidad} onChange={(e) => setOriginalidad(e.target.value)} min="1" max="10" />
+
       <button onClick={handleSubmit}>Enviar Voto</button>
     </div>
   );

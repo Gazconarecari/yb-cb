@@ -21,6 +21,15 @@ function Proximamente() {
     fetchConvocatorias();
   }, []);
 
+  const isToday = (date) => {
+    const today = new Date();
+    return (
+      date.getDate() === today.getDate() &&
+      date.getMonth() === today.getMonth() &&
+      date.getFullYear() === today.getFullYear()
+    );
+  };
+
   return (
     <div className="container">
       <h2>Próximas Convocatorias</h2>
@@ -33,10 +42,12 @@ function Proximamente() {
 
             return (
               <li key={index}>
-                {convocatoriaDate >= new Date() ? (
-                  <p>{convocatoria.username} cocinará el {convocatoriaDate.toLocaleDateString()}</p>
+                {isToday(convocatoriaDate) ? (
+                  <p>{convocatoria.username} cocina hoy</p>  // Si es hoy
+                ) : convocatoriaDate >= new Date() ? (
+                  <p>{convocatoria.username} cocinará el {convocatoriaDate.toLocaleDateString()}</p>  // Si es una fecha futura
                 ) : (
-                  <p>{convocatoria.username} no tiene fecha, pero que se vaya preparando</p>
+                  <p>{convocatoria.username} no tiene fecha, pero que se vaya preparando</p>  // Si es una fecha pasada
                 )}
               </li>
             );

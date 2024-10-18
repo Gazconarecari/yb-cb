@@ -9,7 +9,7 @@ function Clasificacion() {
     async function fetchData() {
       // Llamamos a la función RPC para obtener el nombre del usuario y el promedio
       const { data: convocatoriasData, error } = await supabase
-        .rpc('get_promedio_por_convocatoria'); // Llamamos a la función SQL
+        .rpc('get_promedio_por_convocatoria'); // Llamamos a la función SQL actualizada
 
       if (error) {
         console.log('Error obteniendo los datos:', error);
